@@ -31,6 +31,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     TextView responseText;
+    TextView laPazCasosTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<CovidReport>() {
             @Override
             public void onResponse(Call<CovidReport> call, Response<CovidReport> response) {
+
                 CovidReport report = response.body();
                 String fecha = report.getFecha();
 
@@ -64,7 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 Sc santaCruz = departamentos.getSc();
                 Tj tarija = departamentos.getTj();
 
-                responseText.setText(response.body().getTotal().toString());
+                laPazCasosTextView = findViewById(R.id.laPazCasosTextView);
+                laPazCasosTextView.setText(laPaz.getTotal().toString());
+
+                String boliviaCasos = "Casos totales en Bolivia: " + response.body().getTotal().toString();
+                responseText.setText(boliviaCasos);
             }
 
             @Override
